@@ -1,0 +1,15 @@
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\Todo Project.exe.config
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\Todo Project.exe
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\Todo Project.pdb
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.csprojAssemblyReference.cache
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\MainWindow.g.cs
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\App.g.cs
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project_MarkupCompile.cache
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project_MarkupCompile.lref
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\MainWindow.baml
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.g.resources
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo_Project.Properties.Resources.resources
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.csproj.GenerateResource.cache
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.csproj.CoreCompileInputs.cache
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.exe
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.pdb
