@@ -13,3 +13,9 @@ C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo
 C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.csproj.CoreCompileInputs.cache
 C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.exe
 C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.pdb
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\MaterialDesignColors.dll
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project.csproj.CopyComplete
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\MaterialDesignColors.pdb

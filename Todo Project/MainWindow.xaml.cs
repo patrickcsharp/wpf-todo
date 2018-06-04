@@ -12,23 +12,27 @@ namespace Todo_Project
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<User> users = new ObservableCollection<User>();
+        public User SelectedItem { get; set; } = new User();
+        public ObservableCollection<User> users { get; set; } = new ObservableCollection<User>();
+        public string textbox { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
-            LB.ItemsSource = users;
-        }        
+        }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            users.Add(new User() { Name = Textbox1.Text });
-
+            if (textbox != null)
+            {
+                users.Add(new User() { Name = textbox });
+            }           
         }
         private void TodoRemove(object sender, RoutedEventArgs e)
         {
-            if (LB.SelectedItem != null)
-                users.Remove(LB.SelectedItem as User);
+            if (SelectedItem != null)
+                users.Remove(SelectedItem as User);
         }
     }
     public class User : INotifyPropertyChanged
@@ -54,5 +58,5 @@ namespace Todo_Project
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
-    }    
+    }
 }
