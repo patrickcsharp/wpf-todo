@@ -4,59 +4,52 @@ using System.Linq;
 using System.Windows;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Todo_Project
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public User SelectedItem { get; set; } = new User();
         public ObservableCollection<User> users { get; set; } = new ObservableCollection<User>();
-        public string textbox { get; set; }
-
-        public MainWindow()
+        private string _textbox;
+        public string textbox
         {
-            InitializeComponent();
-            this.DataContext = this;
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (textbox != null)
+            get
             {
-                users.Add(new User() { Name = textbox });
-            }           
-        }
-        private void TodoRemove(object sender, RoutedEventArgs e)
-        {
-            if (SelectedItem != null)
-                users.Remove(SelectedItem as User);
-        }
-    }
-    public class User : INotifyPropertyChanged
-    {
-        private string name;
-        public string Name
-        {
-            get { return this.name; }
+                return _textbox;
+            }
             set
             {
-                if (this.name != value)
-                {
-                    this.name = value;
-                    this.NotifyPropertyChanged("Name");
-                }
+                _textbox = value;
+                NotifyPropertyChanged("textbox");
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public ICommand AddCommand { get; }
 
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            this.DataContext = this;
+            AddCommand = new AddUserCommand(users);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void TodoRemove(object sender, RoutedEventArgs e)
+        {
+            if (SelectedItem != null)
+                users.Remove(SelectedItem as User);
         }
     }
 }
