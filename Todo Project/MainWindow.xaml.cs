@@ -28,8 +28,47 @@ namespace Todo_Project
                 NotifyPropertyChanged("textbox");
             }
         }
+        private ICommand _addUserCommand;
+        public ICommand AddCommand
+        {
+            get
+            {
+                return _addUserCommand ?? (_addUserCommand = new RelayCommand(AddUser, CanAddUser));
+            }
+        }
 
-        public ICommand AddCommand { get; }
+        private void AddUser()
+        {
+            users.Add(new User() { Name = textbox });
+        }
+
+        private bool CanAddUser()
+        {
+            return true;
+        }
+
+
+        private ICommand _removeUserCommand;
+        public ICommand RemoveCommand
+        {
+            get
+            {
+                return _removeUserCommand ?? (_addUserCommand = new RelayCommand(RemoveUser, CanRemoveUser));
+            }
+        }
+
+        private void RemoveUser()
+        {
+            if (SelectedItem != null)
+            {
+                users.Remove(SelectedItem as User);
+            }
+        }
+
+       private bool CanRemoveUser()
+        {
+            return true;
+        }
 
         public void NotifyPropertyChanged(string propName)
         {
@@ -41,7 +80,6 @@ namespace Todo_Project
         {
             InitializeComponent();
             this.DataContext = this;
-            AddCommand = new AddUserCommand(users);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

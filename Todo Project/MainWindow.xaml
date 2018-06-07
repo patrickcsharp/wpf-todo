@@ -9,7 +9,7 @@
     <StackPanel>
         <ListBox DisplayMemberPath="Name" ItemsSource="{Binding Path=users}" SelectedItem="{Binding Path=SelectedItem}"></ListBox>
         <Button Content="Add todo" Command="{Binding AddCommand}" CommandParameter="{Binding textbox}" Height="51" Margin="228,0"/>
-        <Button Content="Remove todo" Click="TodoRemove" Height="51"/>
+        <Button Content="Remove todo" Command="{Binding RemoveCommand}" CommandParameter="{Binding textbox}" Height="51"/>
         <TextBox Text="{Binding Path=textbox}" AcceptsReturn="False" Height="125" Background="Azure" FontSize="20"/>
     </StackPanel>
 </Window>
