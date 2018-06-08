@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Configuration;
 using System.Data.SqlClient;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Todo_Project
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        string connectionString = "Data Source=localhost;Initial Catalog=TodoDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        public Item SelectedItem { get; set; } = new Item();
-        public ObservableCollection<Item> items { get; set; } = new ObservableCollection<Item>();
+        private string _connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
         private string _itemtext;
+        private ICommand _AddItemCommand;
+        private ICommand _RemoveItemCommand;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Item SelectedItem { get; set; } = new Item();
+
+        public ObservableCollection<Item> items { get; set; } = new ObservableCollection<Item>();
+
         public string itemtext
         {
             get
@@ -27,7 +34,6 @@ namespace Todo_Project
                 NotifyPropertyChanged("itemtext");
             }
         }
-        private ICommand _AddItemCommand;
         public ICommand AddItemCommand
         {
             get
@@ -36,7 +42,7 @@ namespace Todo_Project
                 {
                     items.Add(new Item() { Name = itemtext });
 
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
                     {
                         string queryString = "INSERT INTO TodoItems VALUES ('" + itemtext + "')";
                         SqlCommand command = new SqlCommand(queryString, connection);
@@ -46,7 +52,6 @@ namespace Todo_Project
                 }, () => true));
             }
         }
-        private ICommand _RemoveItemCommand;
         public ICommand RemoveItemCommand
         {
             get
@@ -56,7 +61,7 @@ namespace Todo_Project
                     if (SelectedItem != null)
                     {
                         items.Remove(SelectedItem as Item);
-                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        using (SqlConnection connection = new SqlConnection(_connectionString))
                         {
                             string queryString = "DELETE FROM TodoItems WHERE TodoItems='" + itemtext + "'";
                             SqlCommand command = new SqlCommand(queryString, connection);
@@ -68,15 +73,9 @@ namespace Todo_Project
             }
         }
 
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-
         public MainWindow()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 List<string> databaseitems = new List<string>();
                 string queryString = "SELECT * FROM TodoItems";
@@ -92,11 +91,15 @@ namespace Todo_Project
                     items.Add(new Item() { Name = item });
                 }
             }
+
             InitializeComponent();
 
-            this.DataContext = this;
+            DataContext = this;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
     }
 }
