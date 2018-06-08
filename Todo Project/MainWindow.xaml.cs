@@ -8,66 +8,44 @@ using System.Windows.Input;
 
 namespace Todo_Project
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public User SelectedItem { get; set; } = new User();
-        public ObservableCollection<User> users { get; set; } = new ObservableCollection<User>();
-        private string _textbox;
-        public string textbox
+        public Item SelectedItem { get; set; } = new Item();
+        public ObservableCollection<Item> items { get; set; } = new ObservableCollection<Item>();
+        private string _itemtext;
+        public string itemtext
         {
             get
             {
-                return _textbox;
+                return _itemtext;
             }
             set
             {
-                _textbox = value;
-                NotifyPropertyChanged("textbox");
+                _itemtext = value;
+                NotifyPropertyChanged("itemtext");
             }
         }
-        private ICommand _addUserCommand;
-        public ICommand AddCommand
+        private ICommand _AddItemCommand;
+        public ICommand AddItemCommand
         {
             get
             {
-                return _addUserCommand ?? (_addUserCommand = new RelayCommand(AddUser, CanAddUser));
+                return _AddItemCommand ?? (_AddItemCommand = new RelayCommand(() => items.Add(new Item() { Name = itemtext }), () => true));
             }
         }
-
-        private void AddUser()
-        {
-            users.Add(new User() { Name = textbox });
-        }
-
-        private bool CanAddUser()
-        {
-            return true;
-        }
-
-
-        private ICommand _removeUserCommand;
-        public ICommand RemoveCommand
+        private ICommand _RemoveItemCommand;
+        public ICommand RemoveItemCommand
         {
             get
             {
-                return _removeUserCommand ?? (_addUserCommand = new RelayCommand(RemoveUser, CanRemoveUser));
+                return _RemoveItemCommand ?? (_RemoveItemCommand = new RelayCommand(() =>
+                {
+                    if (SelectedItem != null)
+                    {
+                        items.Remove(SelectedItem as Item);
+                    }
+                }, () => true));
             }
-        }
-
-        private void RemoveUser()
-        {
-            if (SelectedItem != null)
-            {
-                users.Remove(SelectedItem as User);
-            }
-        }
-
-       private bool CanRemoveUser()
-        {
-            return true;
         }
 
         public void NotifyPropertyChanged(string propName)
@@ -83,11 +61,5 @@ namespace Todo_Project
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void TodoRemove(object sender, RoutedEventArgs e)
-        {
-            if (SelectedItem != null)
-                users.Remove(SelectedItem as User);
-        }
     }
 }
