@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace Todo_Project
 {
@@ -22,9 +23,10 @@ namespace Todo_Project
             return _canDoWork();
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             _doWork();
+            
         }
     }
 }
