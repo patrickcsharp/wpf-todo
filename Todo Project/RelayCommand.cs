@@ -7,12 +7,16 @@ namespace Todo_Project
 {
     class RelayCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
-        private Action _doWork;
+        private Func<Task> _doWork;
         private Func<bool> _canDoWork;
 
-        public RelayCommand(Action doWork, Func<bool> canDoWork)
+        public RelayCommand(Func<Task> doWork, Func<bool> canDoWork)
         {
             _doWork = doWork;
             _canDoWork = canDoWork;
@@ -24,9 +28,9 @@ namespace Todo_Project
         }
 
         public async void Execute(object parameter)
-        {
-            _doWork();
-            
+        {        
+            await _doWork();
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

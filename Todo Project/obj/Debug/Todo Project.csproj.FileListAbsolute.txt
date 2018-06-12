@@ -21,3 +21,4 @@ C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo
 C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\MaterialDesignColors.pdb
 C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\bin\Debug\ConnectionStrings.config
 C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\Todo Project_Content.g.cs
+C:\Users\Soldiercrimes\Desktop\Projects\Todo Project\Todo Project\obj\Debug\App.baml
