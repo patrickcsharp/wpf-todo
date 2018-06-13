@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.Concurrent;
-using System.Threading.Tasks;
+using System.Linq;
 namespace Todo_Project
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
@@ -20,7 +20,19 @@ namespace Todo_Project
         public event PropertyChangedEventHandler PropertyChanged;
         private Item _SelectedItem = new Item();
 
-        public Item SelectedItem { get; set; } = new Item();
+        public Item SelectedItem
+        {
+            get
+            {
+                return _SelectedItem;
+            }
+            set
+            {
+                _SelectedItem = value;
+                NotifyPropertyChanged("SelectedItem");
+                CommandManager.InvalidateRequerySuggested();
+            }
+        }
 
         public ObservableCollection<Item> items { get; set; } = new ObservableCollection<Item>();
         private string _itemtext;
@@ -34,6 +46,7 @@ namespace Todo_Project
             {
                 _itemtext = value;
                 NotifyPropertyChanged("itemtext");
+                CommandManager.InvalidateRequerySuggested();
             }
         }
         public ICommand AddItemCommand
@@ -43,8 +56,7 @@ namespace Todo_Project
                 return _AddItemCommand ?? (_AddItemCommand = new RelayCommand(async () =>
                 {
                     _isAddingItem = true;
-                    items.Add(new Item() { Name = itemtext });
-
+                    items.Add(new Item() { Name = itemtext });                    
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {                    
                     string queryString = "INSERT INTO TodoItems VALUES ('" + itemtext + "')";
@@ -52,8 +64,14 @@ namespace Todo_Project
                     await command.Connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
                 }
+                    itemtext = string.Empty;
+                    SelectedItem = items[items.IndexOf(items.Last())];
                     _isAddingItem = false;
-                }, () => !_isAddingItem));
+                }, () =>
+                {
+                    return (!_isAddingItem && !string.IsNullOrWhiteSpace(itemtext));
+                }
+                ));
             }
         }
         public ICommand RemoveItemCommand
@@ -75,9 +93,14 @@ namespace Todo_Project
                             await command.Connection.OpenAsync();
                             await command.ExecuteNonQueryAsync();
                         }
+                        SelectedItem = items.Last();
                         _isRemovingItem = false;
                     }
-                }, () => !_isRemovingItem));
+                }, () =>
+                {
+                    return (!_isRemovingItem && SelectedItem != null);
+                }
+                ));
             }
         }
 
